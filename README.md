@@ -2,7 +2,7 @@
 
 Atomic Habits-based daily execution and performance tracking system for a solo founder-athlete.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/reagan-os)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/reagankangfitness-droid/Reagan-os)
 
 ## What it does
 

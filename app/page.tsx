@@ -1,101 +1,95 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import {
+  CalendarCheck,
+  BarChart3,
+  DollarSign,
+  Lightbulb,
+  FileText,
+  Dumbbell,
+} from "lucide-react";
+import TodayTab from "@/components/tabs/today";
+import ScorecardTab from "@/components/tabs/scorecard";
+import IncomeTab from "@/components/tabs/income";
+import PipelineTab from "@/components/tabs/pipeline";
+import ContentBankTab from "@/components/tabs/content-bank";
+import TrainingTab from "@/components/tabs/training";
+
+const TABS = [
+  { id: "today", label: "Today", icon: CalendarCheck },
+  { id: "scorecard", label: "Scorecard", icon: BarChart3 },
+  { id: "income", label: "Income", icon: DollarSign },
+  { id: "pipeline", label: "Pipeline", icon: Lightbulb },
+  { id: "content", label: "Content", icon: FileText },
+  { id: "training", label: "Training", icon: Dumbbell },
+] as const;
+
+type TabId = (typeof TABS)[number]["id"];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [activeTab, setActiveTab] = useState<TabId>("today");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Desktop top nav */}
+      <nav className="hidden md:flex items-center gap-1 px-6 py-3 border-b border-border bg-[#0c0e14]">
+        <span className="text-lg font-bold text-white mr-6 tracking-tight">
+          Reagan OS
+        </span>
+        {TABS.map((tab) => {
+          const Icon = tab.icon;
+          const active = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                active
+                  ? "bg-[#378ADD]/15 text-[#378ADD]"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Main content */}
+      <main className="flex-1 overflow-y-auto pb-20 md:pb-6">
+        <div className="max-w-5xl mx-auto px-4 py-6">
+          {activeTab === "today" && <TodayTab />}
+          {activeTab === "scorecard" && <ScorecardTab />}
+          {activeTab === "income" && <IncomeTab />}
+          {activeTab === "pipeline" && <PipelineTab />}
+          {activeTab === "content" && <ContentBankTab />}
+          {activeTab === "training" && <TrainingTab />}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      {/* Mobile bottom nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 flex items-center justify-around px-2 py-2 border-t border-border bg-[#0c0e14] z-50">
+        {TABS.map((tab) => {
+          const Icon = tab.icon;
+          const active = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-xs transition-colors ${
+                active
+                  ? "text-[#378ADD]"
+                  : "text-muted-foreground"
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }

@@ -254,7 +254,7 @@ export default function IncomeTab() {
           </div>
 
           {/* Bar chart */}
-          <div className="flex items-end gap-2 h-48">
+          <div className="flex items-end gap-2 h-48 relative">
             {history.map((h) => {
               const totalH = h.pillar1 + h.pillar2 + h.pillar3;
               const pct1 = (h.pillar1 / maxBar) * 100;

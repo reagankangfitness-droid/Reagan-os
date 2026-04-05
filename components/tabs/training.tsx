@@ -828,7 +828,7 @@ export default function TrainingTab() {
               </label>
               <Slider
                 value={[bioForm.energy]}
-                onValueChange={(v) => setBioForm((f) => ({ ...f, energy: Array.isArray(v) ? v[0] : v }))}
+                onValueChange={(v) => setBioForm((f) => ({ ...f, energy: v[0] }))}
                 min={1}
                 max={10}
                 step={1}
